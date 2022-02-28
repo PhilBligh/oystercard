@@ -21,13 +21,19 @@ describe Oystercard do
   it "deducts a fare" do
     oyster_1 = Oystercard.new
     oyster_1.top_up(15)
-    expect(oyster_1.deduct(10)).to eq (5)
+    oyster_1.touch_out
+    expect(oyster_1.balance).to eq (14)
   end
 
   describe ".touch_in" do
     it 'changes the status of the oystercard to true' do
       oyster_1 = Oystercard.new
+      oyster_1.top_up(1)
       expect(oyster_1.touch_in).to eq true
+    end
+
+    it 'touch_in fail if balance less than £1' do
+      expect { subject.touch_in }.to raise_error "Not enough funds on your Oystercard"
     end
   end
 
@@ -36,11 +42,17 @@ describe Oystercard do
       oyster_1 = Oystercard.new
       expect(oyster_1.touch_out).to eq false
     end
+
+    it 'deducts balance when touching out' do
+      subject.top_up(1)
+      expect { subject.touch_out }.to change{ subject.balance }.by(-Oystercard::MIN_LIMIT)
+    end
   end
 
   describe ".in_journey?" do
     it 'returns the journey status' do
       oyster_1 = Oystercard.new
+      oyster_1.top_up(1)
       expect(oyster_1.in_journey?) == false
       oyster_1.touch_in
       expect(oyster_1.in_journey?) == true

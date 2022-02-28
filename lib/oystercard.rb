@@ -1,5 +1,6 @@
 class Oystercard
     MAX_LIMIT = 90
+    MIN_LIMIT = 1
 
     def initialize
         @balance = 0
@@ -13,22 +14,26 @@ class Oystercard
         @balance += amount
     end
 
-    def deduct(fare)
-        @balance -= fare
-    end
-
+    
     def touch_in
+        fail "Not enough funds on your Oystercard" if @balance < MIN_LIMIT
         @status = true
     end
-
+    
     def touch_out
+        deduct(MIN_LIMIT)
         @status = false
     end
-
+    
     def in_journey?
         @status
     end
 
+    private
+
+    def deduct(fare) #likely to be updated
+        @balance -= fare
+    end
+    
 end
 
-        
