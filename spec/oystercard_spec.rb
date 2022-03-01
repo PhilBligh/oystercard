@@ -1,5 +1,6 @@
 require 'oystercard'
 describe Oystercard do
+
   it 'initialises with a balance of 0' do
     oyster_1 = Oystercard.new
     expect(oyster_1.balance).to eq(0)
@@ -29,11 +30,18 @@ describe Oystercard do
     it 'changes the status of the oystercard to true' do
       oyster_1 = Oystercard.new
       oyster_1.top_up(1)
-      expect(oyster_1.touch_in).to eq true
+      expect(oyster_1.touch_in("Waterloo")).to eq true
     end
 
     it 'touch_in fail if balance less than £1' do
-      expect { subject.touch_in }.to raise_error "Not enough funds on your Oystercard"
+      expect { subject.touch_in("Waterloo") }.to raise_error "Not enough funds on your Oystercard"
+    end
+
+    it 'remembers the station where you touch in' do
+      fake_station = double(:fake_station)
+      subject.top_up(1)
+      subject.touch_in(fake_station)
+      expect(subject.entry_station).to eq fake_station
     end
   end
 
@@ -54,7 +62,7 @@ describe Oystercard do
       oyster_1 = Oystercard.new
       oyster_1.top_up(1)
       expect(oyster_1.in_journey?) == false
-      oyster_1.touch_in
+      oyster_1.touch_in("Waterloo")
       expect(oyster_1.in_journey?) == true
     end
   end

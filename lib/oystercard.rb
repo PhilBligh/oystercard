@@ -1,3 +1,5 @@
+ require 'station'
+
 class Oystercard
     MAX_LIMIT = 90
     MIN_LIMIT = 1
@@ -7,7 +9,7 @@ class Oystercard
         @status = false
     end
 
-    attr_accessor :balance, :status
+    attr_accessor :balance, :status, :entry_station
 
     def top_up(amount)
         fail "Cannot top up as you exceeded the maximum limit of #{MAX_LIMIT}" if @balance + amount > MAX_LIMIT
@@ -15,8 +17,9 @@ class Oystercard
     end
 
     
-    def touch_in
+    def touch_in(station)
         fail "Not enough funds on your Oystercard" if @balance < MIN_LIMIT
+        @entry_station = station
         @status = true
     end
     
