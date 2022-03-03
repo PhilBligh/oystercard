@@ -12,12 +12,6 @@ describe Journey do
     expect(subject.journey[:exit_station]).to eq 'vauxhall'
   end
 
-  it 'remembers the previous journey' do
-    subject.journey_start('waterloo')
-    subject.journey_end('vauxhall')
-    expect(subject.journey_list[0]).to eq subject.journey
-  end
-
   it 'charges the correct fare' do
     subject.journey_start(Station.new("Waterloo", 1))
     subject.journey_end(Station.new("Vauxhall", 1))
@@ -30,11 +24,4 @@ describe Journey do
     expect(subject.fare).to eq 6
   end
 
-  it 'remembers all previous journeys' do
-    subject.journey_start('waterloo')
-    subject.journey_end('vauxhall')
-    subject.journey_start('bow')
-    subject.journey_end('bank')
-    expect(subject.journey_list[1]).to eq subject.journey
-  end
 end
