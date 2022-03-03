@@ -30,16 +30,16 @@ describe Oystercard do
   # end
 
   it 'remembers the previous journey' do
-    subject.touch_in('waterloo')
-    subject.touch_out('vauxhall')
+    subject.touch_in('waterloo', 7)
+    subject.touch_out('vauxhall', 4)
     expect(subject.journey_list[0]).to eq subject.journey
   end
 
   it 'remembers all previous journeys' do
-    subject.touch_in('waterloo')
-    subject.touch_out('vauxhall')
-    subject.touch_in('bow')
-    subject.touch_out('bank')
+    subject.touch_in('waterloo', 7)
+    subject.touch_out('vauxhall', 4)
+    subject.touch_in('bow', 1)
+    subject.touch_out('bank', 2)
     expect(subject.journey_list[1]).to eq subject.journey
   end
 
