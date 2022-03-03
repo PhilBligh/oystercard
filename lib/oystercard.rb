@@ -5,7 +5,7 @@ class Oystercard
     MIN_LIMIT = 1
 
     def initialize
-        @balance = 10
+        @balance = 0
         @in_journey = false
         @journey_list = []
         @penalty = 6

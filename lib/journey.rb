@@ -14,10 +14,6 @@ class Journey
   def journey_end(station)
     @journey[:exit_station] = station
   end
-
-  def complete_journey?
-     @journey[:entry_station] == nil || @journey[:exit_station] == nil
-  end
     
   def fare
       (@journey[:entry_station].zone - @journey[:exit_station].zone).abs + 1
