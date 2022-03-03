@@ -35,6 +35,6 @@ describe Journey do
     subject.journey_end('vauxhall')
     subject.journey_start('bow')
     subject.journey_end('bank')
-    expect(subject.journey_list[0]).to eq subject.journey
+    expect(subject.journey_list[1]).to eq subject.journey
   end
 end

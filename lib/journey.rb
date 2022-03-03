@@ -1,7 +1,7 @@
 require_relative 'station'
 
 class Journey
-  attr_reader :journey
+  attr_accessor :journey
 
   def initialize
     @journey = {entry_station: nil, exit_station: nil}

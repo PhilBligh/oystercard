@@ -10,7 +10,7 @@ class Oystercard
         @journey_list = []
     end
 
-    attr_accessor :balance, :status, :journey_list
+    attr_accessor :balance, :status, :journey_list, :journey
 
     def top_up(amount)
         fail "Cannot top up as you exceeded the maximum limit of #{MAX_LIMIT}" if @balance + amount > MAX_LIMIT
