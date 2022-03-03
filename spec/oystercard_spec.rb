@@ -35,20 +35,6 @@ describe Oystercard do
     expect(oyster_1.balance).to eq (7)
   end
 
-  it 'remembers the previous journey' do
-    oyster_1.touch_in(station)
-    oyster_1.touch_out(station_2)
-    expect(oyster_1.journey_list[0]).to eq oyster_1.journey
-  end
-
-  it 'remembers all previous journeys' do
-    oyster_1.touch_in(station)
-    oyster_1.touch_out(station_2)
-    oyster_1.touch_in(station)
-    oyster_1.touch_out(station_2)
-    expect(oyster_1.journey_list[1]).to eq oyster_1.journey
-  end
-
   describe ".touch_in" do
     it 'changes the status of the oystercard to true' do
       oyster_1.top_up(1)
