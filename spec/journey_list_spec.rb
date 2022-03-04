@@ -19,7 +19,7 @@ describe JourneyList do
 
 it 'remembers the station where you touch in' do
   subject.journey_start(station)
-  expect(trip.journey[:entry_station]).to eq station.station_name
+  expect(subject.trip.journey[:entry_station]).to eq station
 end
 
 # it 'remembers the station where you touch out' do
