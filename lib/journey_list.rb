@@ -17,4 +17,10 @@ class JourneyList
     @trip.journey[:exit_station] = station
     @journey_list << @trip.journey
   end
+
+  def see_list
+    @journey_list.each {|journey|
+      puts "#{journey[:entry_station].station_name} - #{journey[:exit_station].station_name}"
+    }
+  end
 end

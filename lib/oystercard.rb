@@ -1,4 +1,5 @@
 require_relative 'journey'
+require_relative 'journey_list'
 
 class Oystercard
     MAX_LIMIT = 90
@@ -7,11 +8,11 @@ class Oystercard
     def initialize
         @balance = 0
         @in_journey = false
-        @journey_list = []
+        @my_list = JourneyList.new
         @penalty = 6
     end
 
-    attr_accessor :balance, :status, :journey_list, :journey, :in_journey
+    attr_accessor :balance, :status, :journey_list, :journey, :in_journey, :my_list, :penalty
 
     def top_up(amount)
         fail "Cannot top up as you exceeded the maximum limit of #{MAX_LIMIT}" if @balance + amount > MAX_LIMIT
@@ -22,20 +23,19 @@ class Oystercard
     def touch_in(station)
         fail "Not enough funds on your Oystercard" if @balance < MIN_LIMIT
         if in_journey?
-            deduct(penalty)
+            deduct(@penalty)
         end
-        @journey = Journey.new
-        @journey.journey_start(station)
+        @my_list.journey_start(station)
         @in_journey = true
     end
     
     def touch_out(station)
-        @journey.journey_end(station)
+        @my_list.journey_end(station)
         if in_journey? == false
-          deduct(penalty)
+          deduct(@penalty)
         else
-          @journey_list << @journey
-          deduct(@journey.fare)
+        #   @my_list.journey_list << @my_list.trip
+          deduct(@my_list.trip.fare)
         end
         @in_journey = false
     end
